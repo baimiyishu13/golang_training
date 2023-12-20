@@ -39,12 +39,13 @@ func main() {
 
 }
 
+// 比较字符串的首尾字符、第二个字符和倒数第二个字符，以此类推，来确定字符串是否对称
 // isPalindrome("g") -> true
 // isPalindrome("go") -> false
 // isPalindrome("gog") -> true
 // isPalindrome("gogo") -> false
 // isPalindrome("g🤔g") -> true
-// 比较字符串的首尾字符、第二个字符和倒数第二个字符，以此类推，来确定字符串是否对称
+
 func isPalindrome(s string) bool {
 	// todo: you code goer here
 	rs := []rune(s)

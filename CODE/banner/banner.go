@@ -29,17 +29,32 @@ func main() {
 	fmt.Printf("x=%v,y=%v\n", x, y)
 	fmt.Printf("x=%#v,y=%#v\n", x, y) // Use #v in debu/log
 
-	fmt.Printf("%s %20s!", s, s)
+	fmt.Printf("%s %20s!\n", s, s)
+
+	fmt.Println("g", isPalindrome("g"))
+	fmt.Println("go", isPalindrome("go"))
+	fmt.Println("gog", isPalindrome("gog"))
+	fmt.Println("gogo", isPalindrome("gogo"))
+	fmt.Println("g🤔g", isPalindrome("g🤔g"))
+
 }
 
 // isPalindrome("g") -> true
 // isPalindrome("go") -> false
 // isPalindrome("gog") -> true
 // isPalindrome("gogo") -> false
+// isPalindrome("g🤔g") -> true
+// 比较字符串的首尾字符、第二个字符和倒数第二个字符，以此类推，来确定字符串是否对称
 func isPalindrome(s string) bool {
 	// todo: you code goer here
-
-	return false
+	rs := []rune(s)
+	//fmt.Println(rs)
+	for i := 0; i < len(rs)/2; i++ {
+		if rs[i] != rs[len(rs)-i-1] {
+			return false
+		}
+	}
+	return true
 }
 
 func banner(text string, width int) {

@@ -3,43 +3,41 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 )
 
 func main() {
-	resp, err := http.Get("https://jsonplaceholder.typicode.com/todos/1")
+	title, userid, err := jsonInfo("1")
 	if err != nil {
-		log.Fatalf("error: %s", err)
-		/*
-			log.Fatalf("error: %s", err)
-			os.Exit(1)
-		*/
+		fmt.Println("ERROR")
 	}
+	fmt.Printf("jsoninfo: 👀 title: %s,userid: %d\n", title, userid)
+
+}
+
+// main中所有内容合并到jsonInfo中
+func jsonInfo(num string) (string, int, error) {
+	//TODO: you code goes here
+	url := "https://jsonplaceholder.typicode.com/todos/" + num
+	resp, err := http.Get(url)
+
+	if err != nil {
+		return "", 0, err
+	}
+
 	if resp.StatusCode != http.StatusOK {
-		log.Fatalf("error: %s", resp.Status)
+		return "", 0, fmt.Errorf("%#v - %s", url, resp.Status)
 	}
 
-	//fmt.Printf("Header: %s\n", resp.Header.Get("Content-Type"))
-
-	//if _, err := io.Copy(os.Stdout, resp.Body); err != nil {
-	//	log.Fatalf("error: copy - %s", err)
-	//}
+	fmt.Printf("Header: %s\n", resp.Header.Get("Content-Type"))
 
 	var r Reply
 	dec := json.NewDecoder(resp.Body)
 	if err := dec.Decode(&r); err != nil {
-		log.Fatalf("error: %s", err)
+		return "", 0, err
 	}
 
-	//fmt.Println(r)
-	fmt.Printf("%#v\n", r)
-}
-
-func jsonInfo(url string) (string, int, error) {
-	//TODO: you code goes here
-
-	return "", 0, nil
+	return r.Title, r.UserID, nil
 }
 
 type Reply struct {

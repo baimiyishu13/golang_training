@@ -33,6 +33,8 @@ func jsonInfo(num string) (string, int, error) {
 		return "", 0, fmt.Errorf("%#v - %s", url, resp.Status)
 	}
 
+	defer resp.Body.Close()
+
 	fmt.Printf("Header: %s\n", resp.Header.Get("Content-Type"))
 
 	var r struct { // 匿名结构体

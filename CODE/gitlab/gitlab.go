@@ -4,21 +4,23 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	url2 "net/url"
 )
 
 func main() {
-	title, userid, err := jsonInfo("1")
+	title, id, err := jsonInfo("3")
 	if err != nil {
 		fmt.Println("ERROR")
 	}
-	fmt.Printf("jsoninfo: 👀 title: %s,userid: %d\n", title, userid)
+	fmt.Printf("jsoninfo: 👀 title: %s,id: %d\n", title, id)
 
 }
 
 // main中所有内容合并到jsonInfo中
 func jsonInfo(num string) (string, int, error) {
 	//TODO: you code goes here
-	url := "https://jsonplaceholder.typicode.com/todos/" + num
+	url := "https://jsonplaceholder.typicode.com/todos/" + url2.PathEscape(num)
+	println("URL: ", url)
 	resp, err := http.Get(url)
 
 	if err != nil {
@@ -37,11 +39,11 @@ func jsonInfo(num string) (string, int, error) {
 		return "", 0, err
 	}
 
-	return r.Title, r.UserID, nil
+	return r.Title, r.Id, nil
 }
 
 type Reply struct {
-	UserID    int    `json:"userId"`
+	UserID    int    `json:"UserID"`
 	Id        int    `json:"id"`
 	Title     string `json:"title"`
 	Completed bool   `json:"completed"`

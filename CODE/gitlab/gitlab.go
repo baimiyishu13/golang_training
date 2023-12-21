@@ -35,7 +35,7 @@ func jsonInfo(num string) (string, int, error) {
 
 	fmt.Printf("Header: %s\n", resp.Header.Get("Content-Type"))
 
-	var r struct {
+	var r struct { // 匿名结构体
 		UserID    int    `json:"UserID"`
 		Id        int    `json:"id"`
 		Title     string `json:"title"`

@@ -16,7 +16,7 @@ func main() {
 
 }
 
-// main中所有内容合并到jsonInfo中
+// main中所有内容合并到jsonInfo
 func jsonInfo(num string) (string, int, error) {
 	//TODO: you code goes here
 	url := "https://jsonplaceholder.typicode.com/todos/" + url2.PathEscape(num)

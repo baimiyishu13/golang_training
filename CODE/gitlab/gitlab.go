@@ -35,7 +35,13 @@ func jsonInfo(num string) (string, int, error) {
 
 	fmt.Printf("Header: %s\n", resp.Header.Get("Content-Type"))
 
-	var r Reply
+	var r struct {
+		UserID    int    `json:"UserID"`
+		Id        int    `json:"id"`
+		Title     string `json:"title"`
+		Completed bool   `json:"completed"`
+	}
+
 	dec := json.NewDecoder(resp.Body)
 	if err := dec.Decode(&r); err != nil {
 		return "", 0, err
@@ -44,12 +50,12 @@ func jsonInfo(num string) (string, int, error) {
 	return r.Title, r.Id, nil
 }
 
-type Reply struct {
-	UserID    int    `json:"UserID"`
-	Id        int    `json:"id"`
-	Title     string `json:"title"`
-	Completed bool   `json:"completed"`
-}
+//type Reply struct {
+//	UserID    int    `json:"UserID"`
+//	Id        int    `json:"id"`
+//	Title     string `json:"title"`
+//	Completed bool   `json:"completed"`
+//}
 
 /* Json -> Go
 true/false	-	true/false
